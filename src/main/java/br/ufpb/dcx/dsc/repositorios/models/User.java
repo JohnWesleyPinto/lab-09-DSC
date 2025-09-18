@@ -1,5 +1,6 @@
 package br.ufpb.dcx.dsc.repositorios.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import java.util.Collection;
 
@@ -16,6 +17,16 @@ public class User {
 
     @Column(name = "email")
     private String email;
+
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "role")
+    private String role;
 
     @OneToOne
     @JoinColumn(name = "photo_id")
@@ -49,6 +60,30 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Photo getPhoto() {

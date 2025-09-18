@@ -2,8 +2,10 @@ package br.ufpb.dcx.dsc.repositorios.dto;
 
 import br.ufpb.dcx.dsc.repositorios.models.Photo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class UserDTO {
 
@@ -13,6 +15,16 @@ public class UserDTO {
     private String nome;
     @Email
     private String email;
+
+    @NotBlank
+    private String username;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Size(min = 6, message = "A senha deve ter pelo menos 6 caracteres")
+    private String password;
+
+    private String role;
+
 
     private Photo photo;
 
@@ -42,6 +54,30 @@ public class UserDTO {
         this.email = email;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public Photo getPhoto() {
         return photo;
     }
@@ -56,6 +92,8 @@ public class UserDTO {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", role='" + role + '\'' +
                 ", photo=" + photo +
                 '}';
     }
